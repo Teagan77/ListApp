@@ -1,58 +1,49 @@
 package org.randall.teagan;
 
+import configuration.CollectionConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.util.*;
 
-/**
- *@author: Teagan Randall
- *@studNo: 215 095 111
- */
+public class MainClass {
 
-public class ListServiceImplementation implements ListService {
+    public static void main(String[] args){
+        
+    ApplicationContext ctx = new AnnotationConfigApplicationContext(CollectionConfiguration.class);
 
-    @Override
-    public Collection add(Collection a, Object b) {
-        a.add(b);
-        return a;
-    }
-
-    @Override
-    public Collection remove(Collection a, Object b) {
-        a.remove(b);
-        return a;
-    }
-
-    public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
+    CollectionServiceImplementation collectionServiceImplementation = ctx.getBean(CollectionServiceImplementation.class);
+    
+    Scanner scanner = new Scanner(System.in);
 
         List<String> stringNameArray = new ArrayList<>();
         Set<String> stringColorArray = new TreeSet<>();
-        Map<Integer, String> employeeMap = new HashMap<>();
+        HashMap employeeMap = new HashMap<>();
         Collection<Integer> intList = new ArrayList<>();
 
-        stringNameArray.add("Jhon");
-        stringNameArray.add("Jeff");
-        stringNameArray.add("Jeremy");
-        stringNameArray.add("Jack");
+        collectionServiceImplementation.add(stringNameArray,"Jhon");
+        collectionServiceImplementation.add(stringNameArray,"Jeff");
+        collectionServiceImplementation.add(stringNameArray,"Jeremy");
+        collectionServiceImplementation.add(stringNameArray,"Jack");
 
-        stringColorArray.add("Blue");
-        stringColorArray.add("Yellow");
-        stringColorArray.add("Green");
-        stringColorArray.add("Red");
-        stringColorArray.add("Purple");
+        collectionServiceImplementation.add(stringColorArray,"Blue");
+        collectionServiceImplementation.add(stringColorArray,"Yellow");
+        collectionServiceImplementation.add(stringColorArray,"Green");
+        collectionServiceImplementation.add(stringColorArray,"Red");
+        collectionServiceImplementation.add(stringColorArray,"Purple");
 
-        employeeMap.put(123, "Chad");
-        employeeMap.put(124, "Dk");
-        employeeMap.put(125, "Teagan");
-        employeeMap.put(126, "Michael");
+        employeeMap.put(111, "Chad");
+        employeeMap.put(112, "Dk");
+        employeeMap.put(113, "Teagan");
+        employeeMap.put(114, "Michael");
 
-        intList.add(1621);
-        intList.add(6544);
-        intList.add(8547);
-        intList.add(9524);
-        intList.add(9654);
+        collectionServiceImplementation.add(intList,1621);
+        collectionServiceImplementation.add(intList,6544);
+        collectionServiceImplementation.add(intList,8547);
+        collectionServiceImplementation.add(intList,9524);
+        collectionServiceImplementation.add(intList,9654);
 
-        boolean inputValid = false;
+        boolean inputValid;
         boolean repeat = true;
 
         while(repeat) {
@@ -90,7 +81,7 @@ public class ListServiceImplementation implements ListService {
                         System.out.println(stringNameArray);
                         break;
                     case "EMPS":
-                        System.out.println(employeeMap);
+                        collectionServiceImplementation.sort(employeeMap);
                         break;
                 }
             }
@@ -125,5 +116,3 @@ public class ListServiceImplementation implements ListService {
         }
     }
 }
-
-
